@@ -54,4 +54,3 @@ def browser(request):
 def wait(browser):
     from selenium.webdriver.support.ui import WebDriverWait
     return WebDriverWait(browser, timeout=20)  # явное ожидание! Ждать максимум 20 секунд
-

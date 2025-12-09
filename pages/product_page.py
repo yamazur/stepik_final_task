@@ -31,21 +31,3 @@ class ProductPage(BasePage):
         """Проверяет, что сообщение об успехе исчезает"""
         assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message should disappear, but it didn't"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
