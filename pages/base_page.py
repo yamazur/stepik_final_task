@@ -3,6 +3,7 @@ import math
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from .locators import BasePageLocators
 
 class BasePage:
     def __init__(self, browser, url, timeout=10):
@@ -10,17 +11,24 @@ class BasePage:
         self.url = url
         self.browser.implicitly_wait(timeout)
 
-    def open(self):
+    def open(self): #открыть страницу
         self.browser.get(self.url)
 
-    def is_element_present(self, how, what):
+    def is_element_present(self, how, what): #найти элемент на странице
         try:
             self.browser.find_element(how, what)
         except NoSuchElementException:
             return False
         return True
 
-    def solve_quiz_and_get_code(self):
+    def go_to_login_page(self): #перейти на страницу логина
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def should_be_login_link(self): #проверка наличия ссылки для перехода на страницу логина
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def solve_quiz_and_get_code(self): #решить уравнение на странице
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
