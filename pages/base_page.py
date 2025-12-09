@@ -4,6 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
+from .locators import BasketPageLocators
 
 class BasePage:
     def __init__(self, browser, url, timeout=10):
@@ -42,6 +43,9 @@ class BasePage:
         except NoAlertPresentException:
             print("No second alert presented")
 
+    def go_to_basket_page(self): #перейти на страницу корзины
+        link = self.browser.find_element(*BasketPageLocators.BASKET_BTN)
+        link.click()
 
     def is_not_element_present(self, how, what, timeout=4): #абстрактный метод, который проверяет, что элемент не появляется на странице в течение заданного времени
         try:
